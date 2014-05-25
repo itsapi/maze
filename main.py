@@ -32,7 +32,7 @@ class Maze:
     def generate(self):
         space = lambda x, y: ((x % 2) and (y % 2))
         wall = lambda x, y: ((x % 2) and not (y % 2)) or (not (x % 2) and (y % 2))
-        self.maze = [[not (space(x, y) or (wall(x, y) and random.randint(0, 1))) for x in range(self.width)] for y in range(self.height)]
+        self.maze = [[not (space(x, y) or (wall(x, y) and random.randint(0, 1))) or (x == 0 or x == self.width - 1 or y == 0 or y == self.height - 1) for x in range(self.width)] for y in range(self.height)]
 
         if not self.solve():
             self.generate()
@@ -78,6 +78,7 @@ def play(maze):
             x += dx * (not maze.maze[y][x + dx])
             y += dy * (not maze.maze[y + dy][x])
     print(maze.string({(x, y): 'X'}))
+    print('Completed!')
 
 
 def main():
