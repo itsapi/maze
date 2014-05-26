@@ -1,5 +1,6 @@
 import random
 import sys
+from time import time
 
 from nbinput import BlockingInput
 
@@ -84,9 +85,11 @@ def play(maze):
 def main():
     x, y = (int(n) for n in sys.argv[1:3])
     
-    maze = Maze(x, y)
-    print(maze)
-    play(maze)
+    start = time()
+    for i in range(10):
+        maze = Maze(x, y)
+        play(maze)
+    print('Time: ' + round(time() - start, 2))
 
 
 if __name__ == '__main__':
