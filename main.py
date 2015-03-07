@@ -14,7 +14,7 @@ class Maze:
 
     def __str__(self):
         return self.string()
-        
+
     def string(self, objs={}):
         h_border = '+' + ('-' * (self.width * 2 + 1)) + '+\n' 
         string = h_border
@@ -40,7 +40,7 @@ class Maze:
 
     def solve(self, coord=(1, 1), prev=False):
         x, y = coord
-        
+
         if coord == self.end:
             return True
 
@@ -52,7 +52,7 @@ class Maze:
         for d in ((0, -1), (1, 0), (0, 1), (-1, 0)):
             x1, y1 = x + d[0], y + d[1]
             x2, y2 = x1 + d[0], y1 + d[1]
-            
+
             if x2 >= 0 and x2 < len(self.maze[0]) and y2 >= 0 and y2 < len(self.maze) and not self.maze[y1][x1] and (x2, y2) not in self.prev:
                 solved = self.solve((x2, y2), True)
             if solved:
@@ -83,13 +83,18 @@ def play(maze):
 
 
 def main():
-    x, y = (int(n) for n in sys.argv[1:3])
-    
+    try:
+        x, y = (int(n) for n in sys.argv[1:3])
+    except ValueError:
+        sys.exit('Usage: {} width height'.format(sys.argv[0]))
+
+    n = 10
     start = time()
-    for i in range(10):
+    for i in range(n):
         maze = Maze(x, y)
         play(maze)
-    print('Time: ' + round(time() - start, 2))
+    print('Time to complete {} {}x{} mazes: {}'
+          .format(n, x, y, round(time() - start, 2)))
 
 
 if __name__ == '__main__':
