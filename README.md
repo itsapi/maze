@@ -1,4 +1,4 @@
-maze
+Maze
 ====
 
 Maze generator and solver
